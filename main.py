@@ -2,6 +2,7 @@ from random import randint
 import os
 import discord
 import constants
+from random import choice
 from discord.ext import commands
 
 client = commands.Bot(command_prefix=">")
@@ -52,19 +53,46 @@ async def stop_playing(context):
 
 
 @client.command("ult")
-async def play_ult(context, char, language="PT"):
-    # PT_BR
-    if language.upper() == constants.LANG_PT:
-        if char.lower() == constants.PHOENIX.lower():
-            return await play_sound(constants.PHOENIX_ULT_1_PT_BR, context)
-        elif char.lower() == constants.RAZE.lower():
-            await play_sound(constants.RAZE_ULT_1_PT_BR, context)
-    # EN
-    elif language.upper() == constants.LANG_EN:
-        if char.lower() == constants.PHOENIX.lower():
-            return await play_sound("sounds/namoral_vc_morreu.mp3", context)
-        elif char.lower() == constants.RAZE.lower():
-            await play_sound(constants.RAZE_ULT_1_EN, context)
+async def play_ult(context, char, language="PT", *side):
+    ally = None
+    if side is not None:
+        for x in side:
+            if x.lower() == "Enemy":
+                ally = False
+            elif x.lower() == "Ally".lower():
+                ally = True
+
+    if ally is None:
+        ally = choice([True, False])
+    # Som da ult aliada
+    if ally:
+        # PT_BR
+        if language.upper() == constants.LANG_PT:
+            if char.lower() == constants.PHOENIX.lower():
+                return await play_sound(constants.PHOENIX_ULT_1_PT_BR, context)
+            elif char.lower() == constants.RAZE.lower():
+                await play_sound(constants.RAZE_ULT_ALLY_1_PT_BR, context)
+        # EN
+        elif language.upper() == constants.LANG_EN:
+            if char.lower() == constants.PHOENIX.lower():
+                return await play_sound("sounds/namoral_vc_morreu.mp3", context)
+            elif char.lower() == constants.RAZE.lower():
+                await play_sound(constants.RAZE_ULT_ALLY_1_EN, context)
+
+    # Som da ult inimiga
+    else:
+        # PT_BR
+        if language.upper() == constants.LANG_PT:
+            if char.lower() == constants.PHOENIX.lower():
+                return await play_sound(constants.PHOENIX_ULT_1_PT_BR, context)
+            elif char.lower() == constants.RAZE.lower():
+                await play_sound(constants.RAZE_ULT_ENEMY_1_PT_BR, context)
+        # # EN
+        # elif language.upper() == constants.LANG_EN:
+        #     if char.lower() == constants.PHOENIX.lower():
+        #         return await play_sound("sounds/namoral_vc_morreu.mp3", context)
+        #     elif char.lower() == constants.RAZE.lower():
+        #         await play_sound(constants.RAZE_ULT_1_EN, context)
 
 
 # Toca toda a voice line do agente
@@ -85,13 +113,16 @@ async def play_ult(context, char, language="PT"):
 
 
 @client.command("random")
-async def play_ult(context, char, language="PT"):
+async def random_voice_line(context, char, language="PT"):
     # PT_BR
     if language.upper() == constants.LANG_PT:
         if char.lower() == constants.PHOENIX.lower():
             return await play_sound(constants.PHOENIX_ULT_1_PT_BR, context)
         elif char.lower() == constants.RAZE.lower():
-            await play_sound(constants.RAZE_FUCKED_PT_BR, context)
+            voiceLine = choice(
+                [constants.RAZE_FUCKED_PT_BR, constants.RAZE_SE_PICA_1_PT_BR, constants.RAZE_SE_PICA_2_PT_BR,
+                 constants.AI_TU_BROCOU_1, constants.RAZE_ULT_ALLY_1_PT_BR])
+            await play_sound(voiceLine, context)
     # EN
     # elif language.upper() == constants.LANG_EN:
     #     if char.lower() == constants.PHOENIX.lower():
@@ -101,17 +132,12 @@ async def play_ult(context, char, language="PT"):
 
 
 @client.command("brocou")
-async def play_ult(context):
-    await play_sound(get_random_brocou(), context)
-
-
-def get_random_brocou():
-    brocous = [
+async def ai_tu_brocou(context):
+    await play_sound(choice([
         constants.AI_TU_BROCOU_1,
         constants.AI_TU_BROCOU_2,
         constants.AI_TU_BROCOU_3
-    ]
-    return brocous[randint(0, len(brocous) - 1)]
+    ]), context)
 
 
 client.run(os.environ["BOT_TOKEN"])
