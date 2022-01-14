@@ -57,7 +57,7 @@ async def stop_playing(context):
 
 
 @client.command("ult")
-async def play_ult(context, char, language="PT", *side):
+async def play_ult(context, char, language=constants.LANG_PT, *side):
     ally = None
     if side is not None:
         for x in side:
@@ -101,7 +101,7 @@ async def play_ult(context, char, language="PT", *side):
 
 # Toca toda a voice line do agente
 @client.command("voiceline")
-async def play_ult(context, char, language="PT"):
+async def play_ult(context, char, language=constants.LANG_PT):
     # PT_BR
     if language.upper() == constants.LANG_PT:
         if char.lower() == constants.PHOENIX.lower():
@@ -117,7 +117,7 @@ async def play_ult(context, char, language="PT"):
 
 
 @client.command("random")
-async def random_voice_line(context, char, language="PT"):
+async def random_voice_line(context, char, language=constants.LANG_PT):
     # PT_BR
     if language.upper() == constants.LANG_PT:
         if char.lower() == constants.PHOENIX.lower():
