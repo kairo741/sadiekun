@@ -1,16 +1,20 @@
-from random import randint
 import os
-import discord
-import constants
 from random import choice
+
+import discord
 from discord.ext import commands
+
+import constants
+import ascii
 
 client = commands.Bot(command_prefix=">")
 
 
 @client.event
 async def on_ready():
-    print("Bot on")
+    message = choice([ascii.BOT_ON_1, ascii.BOT_ON_2, ascii.BOT_ON_3, ascii.BOT_ON_4, ascii.BOT_ON_5, ascii.BOT_ON_6,
+                      ascii.BOT_ON_7])
+    print(message)
 
 
 async def play_sound(file_name, context):
