@@ -61,9 +61,9 @@ async def play_ult(context, char, language=constants.LANG_PT, *side):
     ally = None
     if side is not None:
         for x in side:
-            if x.lower() == "Enemy":
+            if x.lower() == "enemy":
                 ally = False
-            elif x.lower() == "Ally".lower():
+            elif x.lower() == "ally".lower():
                 ally = True
 
     if ally is None:
@@ -72,10 +72,15 @@ async def play_ult(context, char, language=constants.LANG_PT, *side):
     if ally:
         # PT_BR
         if language.upper() == constants.LANG_PT:
+            # PHOENIX
             if char.lower() == constants.PHOENIX.lower():
                 return await play_sound(constants.PHOENIX_ULT_1_PT_BR, context)
+            # RAZE
             elif char.lower() == constants.RAZE.lower():
                 await play_sound(constants.RAZE_ULT_ALLY_1_PT_BR, context)
+            # BRIM
+            elif char.lower() == constants.BRIMSTONE.lower():
+                await play_sound(constants.BRIMSTONE_ULT_ALLY_1_PT_BR, context)
         # EN
         elif language.upper() == constants.LANG_EN:
             if char.lower() == constants.PHOENIX.lower():
@@ -87,10 +92,15 @@ async def play_ult(context, char, language=constants.LANG_PT, *side):
     else:
         # PT_BR
         if language.upper() == constants.LANG_PT:
+            # PHOENIX
             if char.lower() == constants.PHOENIX.lower():
                 return await play_sound(constants.PHOENIX_ULT_1_PT_BR, context)
+            # RAZE
             elif char.lower() == constants.RAZE.lower():
                 await play_sound(constants.RAZE_ULT_ENEMY_1_PT_BR, context)
+            # BRIM
+            elif char.lower() == constants.BRIMSTONE.lower():
+                await play_sound(constants.BRIMSTONE_ULT_ENEMY_1_PT_BR, context)
         # # EN
         # elif language.upper() == constants.LANG_EN:
         #     if char.lower() == constants.PHOENIX.lower():
@@ -106,8 +116,12 @@ async def play_ult(context, char, language=constants.LANG_PT):
     if language.upper() == constants.LANG_PT:
         if char.lower() == constants.PHOENIX.lower():
             return await play_sound(constants.PHOENIX_ULT_1_PT_BR, context)
+        # RAZE
         elif char.lower() == constants.RAZE.lower():
             await play_sound(constants.RAZE_ALL_VOICE_LINES_PT_BR, context)
+        # RAZE
+        elif char.lower() == constants.BRIMSTONE.lower():
+            await play_sound(constants.BRIMSTONE_ALL_VOICE_LINES_PT_BR, context)
     # EN
     # elif language.upper() == constants.LANG_EN:
     #     if char.lower() == constants.PHOENIX.lower():
@@ -118,21 +132,55 @@ async def play_ult(context, char, language=constants.LANG_PT):
 
 @client.command("random")
 async def random_voice_line(context, char, language=constants.LANG_PT):
+    voiceLine = None
     # PT_BR
     if language.upper() == constants.LANG_PT:
         if char.lower() == constants.PHOENIX.lower():
             return await play_sound(constants.PHOENIX_ULT_1_PT_BR, context)
+        # RAZE
         elif char.lower() == constants.RAZE.lower():
             voiceLine = choice(
                 [constants.RAZE_FUCKED_PT_BR, constants.RAZE_SE_PICA_1_PT_BR, constants.RAZE_SE_PICA_2_PT_BR,
                  constants.AI_TU_BROCOU_1, constants.RAZE_ULT_ALLY_1_PT_BR])
-            await play_sound(voiceLine, context)
+        # BRIM
+        elif char.lower() == constants.BRIMSTONE.lower():
+            voiceLine = choice(
+                [constants.BRIMSTONE_CHURRASQUINHO_PT_BR, constants.BRIMSTONE_RANDOM_1_PT_BR,
+                 constants.BRIMSTONE_FUCKED_1_PT_BR])
+
     # EN
     # elif language.upper() == constants.LANG_EN:
     #     if char.lower() == constants.PHOENIX.lower():
     #         return await play_sound("sounds/namoral_vc_morreu.mp3", context)
     #     elif char.lower() == constants.RAZE.lower():
     #         await play_sound(constants.RAZE_ULT_1_EN, context)
+    await play_sound(voiceLine, context)
+
+
+@client.command("cursed")
+async def random_voice_line(context, char, language=constants.LANG_PT):
+    voiceLine = None
+    # PT_BR
+    if language.upper() == constants.LANG_PT:
+        # if char.lower() == constants.PHOENIX.lower():
+        #     return await play_sound(constants.PHOENIX_ULT_1_PT_BR, context)
+        # # RAZE
+        # elif char.lower() == constants.RAZE.lower():
+        #     voiceLine = choice(
+        #         [constants.RAZE_FUCKED_PT_BR, constants.RAZE_SE_PICA_1_PT_BR, constants.RAZE_SE_PICA_2_PT_BR,
+        #          constants.AI_TU_BROCOU_1, constants.RAZE_ULT_ALLY_1_PT_BR])
+        # BRIM
+        if char.lower() == constants.BRIMSTONE.lower():
+            voiceLine = choice(
+                [constants.BRIMSTONE_CURSED_1_PT_BR, constants.BRIMSTONE_CURSED_2_PT_BR])
+
+    # EN
+    # elif language.upper() == constants.LANG_EN:
+    #     if char.lower() == constants.PHOENIX.lower():
+    #         return await play_sound("sounds/namoral_vc_morreu.mp3", context)
+    #     elif char.lower() == constants.RAZE.lower():
+    #         await play_sound(constants.RAZE_ULT_1_EN, context)
+    await play_sound(voiceLine, context)
 
 
 @client.command("brocou")
