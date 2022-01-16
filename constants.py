@@ -17,6 +17,10 @@ CYPHER = "Cypher"
 NEON = "Neon"
 BRIMSTONE = "Brimstone"
 
+# JETT REVIVE ME
+JETT_REVIVE_ME = "sounds/jett_revive_me.mp3"
+
+
 # AI TU BROCOU
 AI_TU_BROCOU_1 = "sounds/ai_tu_brocou_1.mp3"
 AI_TU_BROCOU_2 = "sounds/ai_tu_brocou_2.mp3"

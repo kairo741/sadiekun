@@ -192,4 +192,9 @@ async def ai_tu_brocou(context):
     ]), context)
 
 
+@client.command("revive")
+async def jett_revive_me(context):
+    await play_sound(constants.JETT_REVIVE_ME, context)
+
+
 client.run(os.environ["BOT_TOKEN"])
